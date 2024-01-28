@@ -21,9 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${leagueSpartan.className} bg-silver gap-8 flex flex-col`}>
+      <body className={`${leagueSpartan.className} bg-silver gap-12 flex flex-col`}>
         <Navbar />
-        <main className='flex h-full w-full justify-center min-h-screen'>
+        <main className='flex w-full justify-center'>
           {children}
         </main>
       </body>

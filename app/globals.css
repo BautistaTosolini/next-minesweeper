@@ -29,3 +29,8 @@
 .board {
  border-radius: 0.5rem;
 }
+
+.cell-button {
+	border-top: 2px solid #a69d91;
+	border-left: 2px solid #a69d91;
+}
