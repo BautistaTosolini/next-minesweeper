@@ -2,19 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import Cell from '@/app/components/Cell';
-import { BOMBS_COUNT, GRID_SIZE } from '@/app/page';
+import { BOMBS_COUNT, CELL_BORDERS, GRID_SIZE } from '@/app/constants';
 import { FlagIcon } from 'lucide-react';
-
-const CELL_BORDERS = [
-  [-1, -1],
-  [-1, 0],
-  [-1, 1],
-  [0, -1],
-  [0, 1],
-  [1, -1],
-  [1, 0],
-  [1, 1],
-]
 
 const Board = ({ matrix }: { matrix: (string | number)[][] }) => {
   const [clicked, setClicked] = useState<string[]>([]);

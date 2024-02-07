@@ -1,19 +1,6 @@
 import Board from '@/app/components/Board';
 import ResetButton from '@/app/components/ResetButton';
-
-export const BOMBS_COUNT = 1;
-export const GRID_SIZE = 10;
-// by adding this coordinates to the coordinates of the cell, you can get the 9 cells surrounding the initial one
-const CELL_BORDERS = [
-  [-1, -1],
-  [-1, 0],
-  [-1, 1],
-  [0, -1],
-  [0, 1],
-  [1, -1],
-  [1, 0],
-  [1, 1],
-]
+import { BOMBS_COUNT, CELL_BORDERS, GRID_SIZE } from '@/app/constants';
 
 const generateMatrix = () => {
   const MATRIX = Array.from({ length: GRID_SIZE }, () => Array.from({ length: GRID_SIZE }, () => 0 as string | number));
