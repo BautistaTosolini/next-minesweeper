@@ -1,6 +1,7 @@
 import Board from '@/app/components/Board';
+import ResetButton from '@/app/components/ResetButton';
 
-export const BOMBS_COUNT = 15;
+export const BOMBS_COUNT = 1;
 export const GRID_SIZE = 10;
 // by adding this coordinates to the coordinates of the cell, you can get the 9 cells surrounding the initial one
 const CELL_BORDERS = [
@@ -59,8 +60,9 @@ export default function Home() {
   const MATRIX = generateMatrix();
 
   return (
-    <main>
+    <main className='flex flex-col items-center gap-4 pb-4'>
       <Board matrix={MATRIX} />
+      <ResetButton />
     </main>
   );
 }

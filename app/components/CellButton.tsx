@@ -7,7 +7,7 @@ interface CellButtonProps {
 
 const CellButton = ({ onClick, onContextMenu, isFlagged, children }: CellButtonProps) => (
   <button
-    className={`cell-button h-full w-full bg-beige flex items-center justify-center ${isFlagged && 'text-orange'}`}
+    className={`cell-button h-full w-full bg-beige flex items-center justify-center transition ${isFlagged ? 'text-orange hover:text-orange2' : 'hover:brightness-110'}`}
     onClick={onClick}
     onContextMenu={onContextMenu}
   >

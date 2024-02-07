@@ -34,3 +34,20 @@
 	border-top: 2px solid #a69d91;
 	border-left: 2px solid #a69d91;
 }
+
+.reset-button {
+	border-radius: 0.5rem;
+}
+
+@keyframes shake {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-10px, 0); }
+  40% { transform: translate(10px, 0); }
+  60% { transform: translate(-10px, 0); }
+  80% { transform: translate(10px, 0); }
+  100% { transform: translate(0, 0); }
+}
+
+.shake {
+  animation: shake 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) 1;
+}

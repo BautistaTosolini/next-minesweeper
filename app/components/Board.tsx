@@ -24,6 +24,16 @@ const Board = ({ matrix }: { matrix: (string | number)[][] }) => {
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
   const [status, setStatus] = useState<'idle' | 'playing' | 'lost' | 'won'>('idle');
 
+  // reset the board
+  useEffect(() => {
+    setClicked([]);
+    setFlagged([]);
+    setStatus('idle');
+    setFlags(BOMBS_COUNT);
+    clearInterval(intervalId!);
+  }, [matrix])
+
+  // timer
   useEffect(() => {
     if (status === 'idle') {
       clearInterval(intervalId!);
@@ -36,7 +46,7 @@ const Board = ({ matrix }: { matrix: (string | number)[][] }) => {
     } else if (status === 'lost' || status === 'won') {
       clearInterval(intervalId!);
     }
-  }, [status, intervalId]);
+  }, [status, intervalId, matrix]);
 
   // converts the time in minutes:seconds
   const formatTime = (seconds: number) => {
@@ -88,13 +98,16 @@ const Board = ({ matrix }: { matrix: (string | number)[][] }) => {
   const handleLeftClick = (rowIndex: number, cellIndex: number) => {
     if (status === 'idle') setStatus('playing');
 
+    if (status === 'won' || status === 'lost') return;
+
+    if (flagged.includes(`${rowIndex}-${cellIndex}`)) return;
+
     if (matrix[rowIndex][cellIndex] === 0) {
       // if the user clicks in an empty cell, all the adyacent cells will clear until it meets a number
       const visitedCells = new Set<string>();
       clearSurroundings(rowIndex, cellIndex, visitedCells);
     } 
     else if (matrix[rowIndex][cellIndex] === 'X') {
-      console.log('CLICKED BOMB')
       setStatus('lost');
       setClicked((clicked) => clicked.concat(`${rowIndex}-${cellIndex}`));
       clearBoard();
@@ -102,6 +115,7 @@ const Board = ({ matrix }: { matrix: (string | number)[][] }) => {
     }
     if (clicked.length === (GRID_SIZE * GRID_SIZE) - BOMBS_COUNT) {
       setStatus('won');
+      clearBoard();
     }
 
     setClicked((clicked) => clicked.concat(`${rowIndex}-${cellIndex}`));
@@ -128,11 +142,18 @@ const Board = ({ matrix }: { matrix: (string | number)[][] }) => {
         <span>
           {formatTime(time)}
         </span>
+        {
+          status === 'lost' ? (
+            <span className='text-3xl text-brown font-bold'>You lost</span>
+          ) : status === 'won' ? (
+            <span className='text-3xl text-brown font-bold'>You win</span>
+          ) : null
+        }
         <span className='flex'>
           <FlagIcon size={25} strokeWidth={3} /> x{flags}
         </span>
       </div>
-      <div className='bg-white p-6 board font-bold text-brown text-2xl shadow-md'>
+      <div className={`bg-white p-6 board font-bold text-brown text-2xl shadow-md ${status === 'lost' && 'shake'}`}>
         {matrix.map((row, rowIndex) => (
           <div key={rowIndex} className='flex'>
             {row.map((cell, cellIndex) => (
